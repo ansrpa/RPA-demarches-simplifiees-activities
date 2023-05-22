@@ -1,0 +1,10 @@
+﻿mutation dossierAccepter($input: DossierAccepterInput!) {
+	dossierAccepter(input: $input) {
+		dossier {
+			id
+		}
+		errors {
+			message
+		}
+	}
+}

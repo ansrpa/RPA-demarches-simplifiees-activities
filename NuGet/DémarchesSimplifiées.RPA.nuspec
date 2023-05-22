@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DémarchesSimplifiées.RPA.Activities</id>
+    <version>1.0.0</version>
+    <title>Démarches Simplifiées RPA</title>
+    <authors>Agence du Numérique en Santé</authors>
+    <owners>Direction des Opérations</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Bibliothèque d'activités pour l'interaction avec l'API GraphQL Démarches Simplifiées</description>
+    <releaseNotes></releaseNotes>
+    <license type="expression">etalab-2.0</license>
+    <dependencies>
+      <group targetFramework=".NETFramework6.0-windows" />
+    </dependencies>
+    <tags>Démarches Simplifiées ANS DS demarches simplifiees</tags>
+    <icon>ds.png</icon>
+  </metadata>
+</package>

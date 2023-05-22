@@ -1,0 +1,10 @@
+﻿mutation dossierRepasserEnInstruction($input: DossierRepasserEnInstructionInput!) {
+	dossierRepasserEnInstruction(input: $input) {
+		dossier {
+			id
+		}
+		errors {
+			message
+		}
+	}
+}

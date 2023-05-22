@@ -1,0 +1,10 @@
+mutation dossierRepasserEnConstruction($input: DossierRepasserEnConstructionInput!) {
+	dossierRepasserEnConstruction(input: $input) {
+		dossier {
+			id
+		}
+		errors {
+			message
+		}
+	}
+}

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="ChangerStatutDesigner.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ChangerStatutDesigner.xaml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="TransférerDossierDesigner.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ChargerDossierDesigner.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RécupérerDossiersDesigner.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

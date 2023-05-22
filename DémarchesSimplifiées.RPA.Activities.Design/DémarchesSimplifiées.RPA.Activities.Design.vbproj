@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>net6.0-windows</TargetFramework>
+	<AssemblyName>DémarchesSimplifiées.RPA.Activities.Design</AssemblyName>
+    <RootNamespace>DémarchesSimplifiées.RPA.Activities.Design</RootNamespace>
+	<UseWPF>true</UseWPF>
+	<ImportedNamespaces>Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,DémarchesSimplifiées.RPA.Activities.Design=True</ImportedNamespaces>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\ChangerStatut.png" />
+    <None Remove="Resources\ChargerDossier.png" />
+    <None Remove="Resources\RécupérerDossiers.png" />
+    <None Remove="Resources\TransférerDossier.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Activities.Core.Presentation" Version="6.0.0-20220831.1" PrivateAssets="All" />
+    <PackageReference Include="System.Activities.Metadata" Version="6.0.0-20220831.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DémarchesSimplifiées.RPA.Activities\DémarchesSimplifiées.RPA.Activities.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ChangerStatut.png" />
+    <Resource Include="Resources\ChargerDossier.png" />
+    <Resource Include="Resources\RécupérerDossiers.png" />
+    <Resource Include="Resources\TransférerDossier.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="TransférerDossierDesigner.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ChargerDossierDesigner.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RécupérerDossiersDesigner.xaml.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="My Project\Resources.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ChangerStatutDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,5 @@
+﻿mutation dossierModifierAnnotationAjouterLigne($input: DossierModifierAnnotationAjouterLigneInput!) {
+	dossierModifierAnnotationAjouterLigne(input: $input) {
+		id
+	}
+}

@@ -1,0 +1,312 @@
+﻿query getDemarche(
+	$demarcheNumber: Int!
+	$first: Int
+	$state: DossierState
+	$order: Order
+	$after: String
+	$updatedSince: ISO8601DateTime
+    $includeChamps: Boolean = true
+    $includeAnotations: Boolean = true
+    $includeTraitements: Boolean = true
+    $includeInstructeurs: Boolean = true
+    $includeAvis: Boolean = false
+    $includeMessages: Boolean = true
+    $includeGeometry: Boolean = true
+) {
+	demarche(number: $demarcheNumber) {
+		id
+		number
+		title
+		dossiers(first: $first, state: $state, order: $order, after: $after, updatedSince: $updatedSince) {
+			pageInfo {
+				endCursor
+				hasNextPage
+			}
+			nodes {
+				...DossierFragment
+			}
+		}
+	}
+}
+
+  fragment GroupeInstructeurFragment on GroupeInstructeur {
+    id
+    number
+    label
+    instructeurs @include(if: $includeInstructeurs) {
+      id
+      email
+    }
+  }
+
+  fragment DossierFragment on Dossier {
+    id
+    number
+    archived
+    state
+    dateDerniereModification
+    dateDepot
+    datePassageEnConstruction
+    datePassageEnInstruction
+    dateTraitement
+    dateExpiration
+    dateSuppressionParUsager
+    motivation
+    motivationAttachment {
+      ...FileFragment
+    }
+    attestation {
+      ...FileFragment
+    }
+    pdf {
+      url
+    }
+    usager {
+      email
+    }
+    groupeInstructeur {
+      ...GroupeInstructeurFragment
+    }
+    demandeur {
+      ... on PersonnePhysique {
+        civilite
+        nom
+        prenom
+        dateDeNaissance
+      }
+      ...PersonneMoraleFragment
+    }
+    demarche {
+      revision {
+        id
+      }
+    }
+    instructeurs @include(if: $includeInstructeurs) {
+      id
+      email
+    }
+    traitements @include(if: $includeTraitements) {
+      state
+      emailAgentTraitant
+      dateTraitement
+      motivation
+    }
+    champs @include(if: $includeChamps) {
+      ...ChampFragment
+      ...RootChampFragment
+    }
+    annotations @include(if: $includeAnotations) {
+      ...ChampFragment
+      ...RootChampFragment
+    }
+    avis @include(if: $includeAvis) {
+      ...AvisFragment
+    }
+    messages @include(if: $includeMessages) {
+      ...MessageFragment
+    }
+  }
+
+  
+
+  fragment AvisFragment on Avis {
+    id
+    question
+    reponse
+    dateQuestion
+    dateReponse
+    claimant {
+      email
+    }
+    expert {
+      email
+    }
+    attachments {
+      ...FileFragment
+    }
+  }
+
+  fragment MessageFragment on Message {
+    id
+    email
+    body
+    createdAt
+    attachments {
+      ...FileFragment
+    }
+  }
+
+  fragment GeoAreaFragment on GeoArea {
+    id
+    source
+    description
+    geometry @include(if: $includeGeometry) {
+      type
+      coordinates
+    }
+    ... on ParcelleCadastrale {
+      commune
+      numero
+      section
+      prefixe
+      surface
+    }
+  }
+
+  fragment RootChampFragment on Champ {
+    ... on RepetitionChamp {
+      rows {
+        champs {
+          ...ChampFragment
+        }
+      }
+    }
+    ... on CarteChamp {
+      geoAreas {
+        ...GeoAreaFragment
+      }
+    }
+    ... on DossierLinkChamp {
+      dossier {
+        id
+        number
+        state
+      }
+    }
+  }
+
+  fragment ChampFragment on Champ {
+    id
+    __typename
+    label
+    stringValue
+    ... on DateChamp {
+      date
+    }
+    ... on DatetimeChamp {
+      datetime
+    }
+    ... on CheckboxChamp {
+      checked: value
+    }
+    ... on DecimalNumberChamp {
+      decimalNumber: value
+    }
+    ... on IntegerNumberChamp {
+      integerNumber: value
+    }
+    ... on CiviliteChamp {
+      civilite: value
+    }
+    ... on LinkedDropDownListChamp {
+      primaryValue
+      secondaryValue
+    }
+    ... on MultipleDropDownListChamp {
+      values
+    }
+    ... on PieceJustificativeChamp {
+      files {
+        ...FileFragment
+      }
+    }
+    ... on AddressChamp {
+      address {
+        ...AddressFragment
+      }
+    }
+    ... on CommuneChamp {
+      commune {
+        name
+        code
+      }
+      departement {
+        name
+        code
+      }
+    }
+    ... on DepartementChamp {
+      departement {
+        name
+        code
+      }
+    }
+    ... on RegionChamp {
+      region {
+        name
+        code
+      }
+    }
+    ... on PaysChamp {
+      pays {
+        name
+        code
+      }
+    }
+    ... on SiretChamp {
+      etablissement {
+        ...PersonneMoraleFragment
+      }
+    }
+  }
+
+  fragment PersonneMoraleFragment on PersonneMorale {
+    siret
+    siegeSocial
+    naf
+    libelleNaf
+    address {
+      ...AddressFragment
+    }
+    entreprise {
+      siren
+      capitalSocial
+      numeroTvaIntracommunautaire
+      formeJuridique
+      formeJuridiqueCode
+      nomCommercial
+      raisonSociale
+      siretSiegeSocial
+      codeEffectifEntreprise
+      dateCreation
+      nom
+      prenom
+      attestationFiscaleAttachment {
+        ...FileFragment
+      }
+      attestationSocialeAttachment {
+        ...FileFragment
+      }
+    }
+    association {
+      rna
+      titre
+      objet
+      dateCreation
+      dateDeclaration
+      datePublication
+    }
+  }
+
+  fragment FileFragment on File {
+    filename
+    contentType
+    checksum
+    byteSize: byteSizeBigInt
+    url
+  }
+
+  fragment AddressFragment on Address {
+    label
+    type
+    streetAddress
+    streetNumber
+    streetName
+    postalCode
+    cityName
+    cityCode
+    departmentName
+    departmentCode
+    regionName
+    regionCode
+  }

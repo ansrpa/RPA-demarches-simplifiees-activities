@@ -1,0 +1,10 @@
+﻿mutation dossierClasserSansSuite($input: DossierClasserSansSuiteInput!) {
+	dossierClasserSansSuite(input: $input) {
+		dossier {
+			id
+		}
+		errors {
+			message
+		}
+	}
+}
